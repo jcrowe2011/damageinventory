@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @product.name
+%p
+  %b Type:
+  = @product.type
+%p
+  %b Abbreviation:
+  = @product.get_sku
+%p
+  %b Qty:
+  = @product.qty
+
+= link_to 'Edit', edit_store_product_path(@store,@product)
+\|
+= link_to 'Back', products_path

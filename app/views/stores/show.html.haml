@@ -1,0 +1,16 @@
+%h1 #{@store.name}: Inventory
+- @product_group.each do |group|
+	%h3= group.name
+	%table
+		%tr
+			%th Color
+			%th Size
+			%th Qty
+			%th Action
+		- @store.products.where(:name => group.name).each do |product|
+			%tr
+				%td= product.color
+				%td= product.size
+				%td= product.qty.to_s
+				%td= link_to "Manage", url_for([@store,product])
+%b= link_to "Add Inventory", new_store_product_path(@store)

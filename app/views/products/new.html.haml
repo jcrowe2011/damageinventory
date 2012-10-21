@@ -1,0 +1,40 @@
+%h1 New product
+
+= form_for [@store,@product] do |f|
+	- if @product.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@product.errors.count, "error")} prohibited this product from being saved:"
+			%ul
+				- @product.errors.full_messages.each do |msg|
+					%li= msg
+	-if current_user.admin?				
+		.field
+			= f.label :name
+			= f.text_field :name
+		.field
+			= f.label :qty
+			= f.text_field :qty
+		.field
+			= f.label :color
+			= f.text_field :color
+		.field
+			= f.label :size
+			= f.text_field :size
+	-else
+		.field
+			= f.label :name
+			= f.select :name, options_for_select(Product.group("name").collect {|u| [u.name]})
+		.field
+			= f.label :color
+			= f.select :color, ""
+		.field
+			= f.label :size
+			= f.select :size, ""
+		.field
+			= f.label :qty
+			= f.text_field :qty
+	.actions
+		= f.submit 'Save'
+
+
+= link_to 'Back', products_path
