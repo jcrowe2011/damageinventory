@@ -9,18 +9,23 @@ $ ->
 			type: "get"
 			dataType: "json"
 			success: (data) ->
+				$('select#product_color').empty()
+				$('select#product_size').empty()
+				console.log data[0]
 				colors = []
 				i = 0
 				while i < data.length
-					$('select#product_color').children().remove()
-					$('select#product_color').append('<option value="'+data[i].color+'">'+data[i].color+'</option>
-') unless data[i].color in colors
+					unless data[i].color in colors
+						$('select#product_color').append('<option value="'+data[i].color+'">'+data[i].color+'</option>
+') 
+						colors.push data[i].color
 					i++
 				sizes = []
 				i = 0
 				while i < data.length
-					$('select#product_size').children().remove()
-					$('select#product_size').append('<option value="'+data[i].size+'">'+data[i].size+'</option>
-') unless data[i].size in sizes
+					unless data[i].size in sizes
+						$('select#product_size').append('<option value="'+data[i].size+'">'+data[i].size+'</option>
+')
+						sizes.push data[i].size
 					i++
 
