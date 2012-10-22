@@ -6,8 +6,8 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
-cooper = User.create!(:email => "cooperm@susteen.com", :password => "cooper")
-cooper.update_attribute(:admin,true)
+josh = User.create!(:email => "jcrowe@interpract.com", :password => "jesus4life")
+josh.update_attribute(:admin,true)
 
 shirts = ["Cosby Creme", "Roak", "Rose", "Floral", "Repeat"]
 hats = ["Lilpenisman", "Logo", "Standard"]
