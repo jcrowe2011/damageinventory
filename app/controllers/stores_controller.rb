@@ -16,7 +16,7 @@ class StoresController < ApplicationController
   def show
     @store = Store.find(params[:id])
     # @products = @store.products.order("name ASC,size ASC,color ASC")
-    @product_group = @store.products.group('name')
+    @product_group = @store.products.group(Product.column_names.collect {|c| "products.#{c}"}.join(","))
 
     respond_to do |format|
       format.html # show.html.erb

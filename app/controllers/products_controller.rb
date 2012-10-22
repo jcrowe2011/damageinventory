@@ -5,8 +5,10 @@ class ProductsController < ApplicationController
   def index
     if params[:fetch] == "true"
       @products = Product.where(:name => params[:id])
-    else
+    elsif params[:store_id]
       @store = Store.find(params[:store_id])
+      @products = Product.all
+    else
       @products = Product.all
     end
     respond_to do |format|
@@ -30,8 +32,12 @@ class ProductsController < ApplicationController
   # GET /products/new
   # GET /products/new.json
   def new
-    @store = Store.find(params[:store_id])
-    @product = Product.new
+   if params[:store_id]
+      @store = Store.find(params[:store_id])
+      @product = @store.products.build
+    else
+      @product = Product.new
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,12 +54,18 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(params[:product])
-    Inventory.update_stock(params[:product_id],params[:store_id],params[:qty])
+    if params[:store_id]
+      @store = Store.find(params[:store_id])
+      @product = @store.products.create!(params[:product])
+      @product.update_inventory(@store.id)
+    else
+      @product = Product.create!(params[:product])
+      Inventory.update_stock(params[:product_id],params[:store_id],params[:qty])
+    end
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render json: @product, status: :created, location: @product }
+        format.html { redirect_to [@store,@product], notice: 'Product was successfully created.' }
+        format.json { render json: [@store,@product], status: :created, location: @product }
       else
         format.html { render action: "new" }
         format.json { render json: @product.errors, status: :unprocessable_entity }

@@ -33,6 +33,8 @@
 		.field
 			= f.label :qty
 			= f.text_field :qty
+	.field
+		%input{:type => "hidden", :value => @store.id}
 	.actions
 		= f.submit 'Save'
 
