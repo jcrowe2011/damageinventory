@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_user :authenticate_user!
+  before_filter :authenticate_user!
   # GET /stores
   # GET /stores.json
   respond_to :json
