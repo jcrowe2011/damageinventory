@@ -8,27 +8,52 @@
 
 josh = User.create!(:email => "jcrowe@interpract.com", :password => "jesus4life")
 josh.update_attribute(:admin,true)
+trent = User.create!(:email => "trent@damagegallery.com", :password => "jesus4life")
+trent.update_attribute(:admin,true)
+casey = User.create!(:email => "casey@damagegallery.com", :password => "dmgcasey123")
+casey.update_attribute(:admin,false)
+derek = User.create!(:email => "derek@damagegallery.com", :password => "dmgderek1234")
+derek.update_attribute(:admin,false)
 
-shirts = ["Cosby Creme", "Roak", "Rose", "Floral", "Repeat"]
-hats = ["Lilpenisman", "Logo", "Standard"]
-colors = ["Black","White","Gray"]
-sizes = ["Small","Medium","Large","X-Large", "XX-Large"]
-stores = ["Collective", "Stade Co", "Thalia Surf Shop", "Pharmacy Board Shop"]
-
+shirts = ["Cosby Creme", "Roak", "Rose", "Floral", "Repeat", "Control", "Ruff", "Trops", "Bill f'd Murray", "Nine Lifes", "Serpent", "EZE"]
+hats = ["Hat-Embrdry", "Hat-Patch" ]
+beanies = ["Beanie-Trdtnl", "Beanie-Cuff"]
+beaniesSizes = ["adult"]
+hatColors = ["Blk/Blk", "Blk/Mrn", "Wht/Mrn", "Blk/Mrn", "Wht/Nvy", "Wht/Blk", "Gld/Nvy", "Wht/Grn"]
+beaniesColors = ["Blk/Blk", "Blk/Mrn", "Wht/Mrn", "Blk/Mrn", "Wht/Nvy", "Wht/Blk", "Gld/Nvy", "Wht/Grn"]
+hatSizes = ["Snap-back"]
+shirtColors = ["White"]
+shirtSizes = ["Small","Medium","Large","X-Large", "XX-Large"]
+stores = ["STOCK", "Collective", "Stade Co", "Thalia Surf Shop", "Pharmacy Board Shop", "Port", "Lobby", "The Attic", "RCH"]
+qty = ["40"]
 
 
 shirts.each do |shirt|
-	colors.each do |color|
-		sizes.each do |size|
-			Shirt.create!(:name => shirt, :color => color, :size => size)
+	shirtColors.each do |color|
+		shirtSizes.each do |size|
+			qty.each do |qty|
+				Shirt.create!(:name => shirt, :color => color, :size => size, :qty => qty)
+			end
 		end
 	end
 end
 
 hats.each do |shirt|
-	colors.each do |color|
-		sizes.each do |size|
-			Hat.create!(:name => shirt, :color => color, :size => size)
+	hatColors.each do |color|
+		hatSizes.each do |size|
+			qty.each do |qty|
+				Hat.create!(:name => shirt, :color => color, :size => size, :qty => qty)
+			end
+		end
+	end
+end
+
+beanies.each do |shirt|
+	beaniesColors.each do |color|
+		beaniesSizes.each do |size|
+			qty.each do |qty|
+				Beanie.create!(:name => shirt, :color => color, :size => size, :qty => qty)
+			end
 		end
 	end
 end
@@ -37,8 +62,9 @@ stores.each do |store|
 	Store.create!(:name => store)
 end
 
-50.times do |t|
-	product = Product.find(rand(Product.all.size)+1)
-	store = Store.find(rand(Store.all.size)+1)
-	store.products << product
+1.times do |t|
+	product = Product.all
+	stock = Store.first
+	
+	stock.products << product
 end

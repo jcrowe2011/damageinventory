@@ -1,5 +1,5 @@
 Dmginv::Application.routes.draw do
-  root :to => "dashboard#index"
+  root :to => "stores#index"
   
   devise_for :users
 

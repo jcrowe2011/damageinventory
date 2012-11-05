@@ -105,4 +105,10 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+def beanies
+  @beanies = Product.all
+
+end
+
 end
